@@ -6,6 +6,7 @@ var cors = require('cors');
 
 app.enable('trust proxy');
 
+
 // enable cors
 app.use(cors())
 app.use(function(req, res, next) {
@@ -33,6 +34,7 @@ app.get('/', (req, res) => {
 });
 
 var connectedClients = {}
+var connectedThoughts = {}
 
 io.on('connection', (socket) => {
   // TODO: handle localhost (and more generally, non-public hosts)
@@ -42,6 +44,8 @@ io.on('connection', (socket) => {
   url = url.parse(socket.request.headers.referer)
 
   const hostAndPathname = url.host + url.pathname;
+  //const thoughtName 
+  
   socket.join(hostAndPathname);
 
   if (connectedClients[hostAndPathname] == null) {
